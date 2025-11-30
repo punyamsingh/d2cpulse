@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import "./page.css";
 
 export default function Home() {
@@ -87,10 +88,21 @@ export default function Home() {
       {/* Header */}
       <header className="header">
         <div className="header-content">
-          <h1 className="header-title">🔍 D2CPulse</h1>
-          <p className="header-subtitle">
-            AI-powered competitive intelligence for D2C brands
-          </p>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <Image
+              src="/logo.svg"
+              alt="D2CPulse Logo"
+              width={80}
+              height={80}
+              priority
+            />
+            <div>
+              <h1 className="header-title">D2CPulse</h1>
+              <p className="header-subtitle">
+                AI-powered competitive intelligence for D2C brands
+              </p>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -100,7 +112,13 @@ export default function Home() {
         <div className="messages-container">
           {messages.length === 0 && (
             <div className="empty-state">
-              <div className="empty-icon">📊</div>
+              <Image
+                src="/logo.svg"
+                alt="D2CPulse Logo"
+                width={200}
+                height={200}
+                style={{ margin: "0 auto 1rem" }}
+              />
               <h2 className="empty-title">Welcome to D2CPulse</h2>
               <p className="empty-subtitle">
                 Analyze any Shopify store for competitive intelligence
