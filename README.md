@@ -1,12 +1,16 @@
-# 🔍 D2CPulse
-
-**AI-Powered Competitive Intelligence for D2C Brands**
-
-D2CPulse is an intelligent web application that provides comprehensive competitive analysis of Shopify-based D2C (Direct-to-Consumer) stores. Powered by AI and built with Next.js, it delivers actionable insights on pricing strategies, product positioning, and market analysis.
-
-![Next.js](https://img.shields.io/badge/Next.js-16.0.5-black)
-![React](https://img.shields.io/badge/React-19.2.0-blue)
-![Neurolink](https://img.shields.io/badge/Neurolink-7.54.0-purple)
+<div align="center">
+  <img src="./public/logo.svg" alt="D2CPulse Logo" width="200" height="200">
+  
+  # D2CPulse
+  
+  **AI-Powered Competitive Intelligence for D2C Brands**
+  
+  D2CPulse is an intelligent web application that provides comprehensive competitive analysis of Shopify-based D2C (Direct-to-Consumer) stores. Powered by AI and built with Next.js, it delivers actionable insights on pricing strategies, product positioning, and market analysis.
+  
+  ![Next.js](https://img.shields.io/badge/Next.js-16.0.5-black)
+  ![React](https://img.shields.io/badge/React-19.2.0-blue)
+  ![Neurolink](https://img.shields.io/badge/Neurolink-7.54.0-purple)
+</div>
 
 ---
 
