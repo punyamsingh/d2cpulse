@@ -1,6 +1,6 @@
 {
   "name": "d2cpulse",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for Shopify store analysis - competitive intelligence for D2C brands. Works as both a standalone MCP server and a Next.js web app.",
   "type": "module",
   "main": "src/lib/mcp/index.js",
