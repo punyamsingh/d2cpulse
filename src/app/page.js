@@ -28,13 +28,13 @@ function SafeAIReportRenderer({ report }) {
           style={{
             background: "rgba(30,41,59,0.98)",
             borderRadius: "1.2rem",
-            padding: "2.5rem 2rem",
+            padding: "clamp(1.25rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem)",
             boxShadow: "0 8px 32px rgba(139,92,246,0.10)",
           }}
         >
           <h1
             style={{
-              fontSize: "2.2rem",
+              fontSize: "clamp(1.5rem, 4vw, 2.2rem)",
               fontWeight: "700",
               marginTop: "0",
               marginBottom: "1.2rem",
@@ -52,8 +52,8 @@ function SafeAIReportRenderer({ report }) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-                gap: "1.5rem",
+                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                gap: "1rem",
                 marginBottom: "2rem",
                 marginTop: "2rem",
                 width: "100%",
@@ -65,14 +65,14 @@ function SafeAIReportRenderer({ report }) {
                   style={{
                     background: "rgba(139, 92, 246, 0.1)",
                     borderRadius: "0.75rem",
-                    padding: "1.5rem",
+                    padding: "1.25rem",
                     border: "1px solid rgba(139, 92, 246, 0.2)",
                     transition: "all 0.3s ease",
                   }}
                 >
                   <div
                     style={{
-                      fontSize: "0.85rem",
+                      fontSize: "0.8rem",
                       color: "#a0aec0",
                       marginBottom: "0.5rem",
                       textTransform: "uppercase",
@@ -84,7 +84,7 @@ function SafeAIReportRenderer({ report }) {
                   </div>
                   <div
                     style={{
-                      fontSize: "1.75rem",
+                      fontSize: "1.5rem",
                       color: "#a78bfa",
                       fontWeight: "700",
                       lineHeight: "1.2",
@@ -105,7 +105,7 @@ function SafeAIReportRenderer({ report }) {
               >
                 <h2
                   style={{
-                    fontSize: "1.7rem",
+                    fontSize: "clamp(1.25rem, 3.5vw, 1.7rem)",
                     fontWeight: "600",
                     marginTop: "2rem",
                     marginBottom: "1.1rem",
