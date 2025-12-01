@@ -1,14 +1,48 @@
 {
   "name": "d2cpulse",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "MCP server for Shopify store analysis - competitive intelligence for D2C brands. Works as both a standalone MCP server and a Next.js web app.",
+  "type": "module",
+  "main": "src/lib/mcp/index.js",
+  "bin": {
+    "d2cpulse": "src/cli.js"
+  },
+  "exports": {
+    ".": "./src/lib/mcp/index.js",
+    "./server": "./src/lib/mcp/servers/shopify-analyzer/index.js",
+    "./tools": "./src/lib/mcp/servers/config.js"
+  },
+  "files": [
+    "src/lib/mcp",
+    "src/cli.js"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "mcp": "node src/cli.js",
+    "mcp:stdio": "node src/cli.js --stdio"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "shopify",
+    "d2c",
+    "ecommerce",
+    "competitive-intelligence",
+    "store-analysis",
+    "ai-tools",
+    "neurolink"
+  ],
+  "author": "punyamsingh",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/punyamsingh/d2cpulse"
   },
   "dependencies": {
     "@juspay/neurolink": "^7.54.0",
+    "@modelcontextprotocol/sdk": "^1.23.0",
     "next": "16.0.5",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -17,5 +51,8 @@
   },
   "devDependencies": {
     "baseline-browser-mapping": "^2.8.32"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

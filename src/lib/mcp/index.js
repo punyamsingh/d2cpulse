@@ -1,11 +1,23 @@
 /**
  * MCP (Model Context Protocol) Module
  *
- * This module exports the MCP configuration and utilities
- * for registering tools with NeuroLink.
+ * This module can be used in two ways:
+ * 1. As an MCP server package - import and use with any MCP-compatible client
+ * 2. With NeuroLink - register tools for AI-powered applications
+ *
+ * Usage as MCP server:
+ *   import { shopifyAnalyzerServer } from '@d2cpulse/shopify-analyzer/server';
+ *
+ * Usage with NeuroLink:
+ *   import { registerToolsWithNeuroLink } from '@d2cpulse/shopify-analyzer';
+ *   registerToolsWithNeuroLink(neurolinkInstance);
  */
 
 import { mcpConfig, getAllImplementedTools } from "./servers/config.js";
+
+// Re-export the server for direct MCP usage
+export { shopifyAnalyzerServer } from "./servers/shopify-analyzer/index.js";
+export { analyzeShopifyStore } from "./servers/shopify-analyzer/utils.js";
 
 /**
  * Transform MCP tools to NeuroLink format
