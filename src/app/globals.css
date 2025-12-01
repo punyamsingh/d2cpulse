@@ -19,88 +19,104 @@ body {
 /* Prose styling for HTML content */
 .prose {
   color: #e2e8f0;
-  max-width: none;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 1rem;
+  box-shadow: 0 4px 32px rgba(139, 92, 246, 0.08);
+  padding: 2rem;
+  word-break: break-word;
 }
 
 .prose h1 {
-  font-size: 1.875rem;
+  font-size: 2.2rem;
   font-weight: 700;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -1px;
 }
 
 .prose h2 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 600;
   margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.5px;
 }
 
 .prose h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
   color: #a78bfa;
+  letter-spacing: -0.2px;
 }
 
 .prose p {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.75;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.8;
 }
 
 .prose ul,
 .prose ol {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-  padding-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
 }
 
 .prose li {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(30, 41, 59, 0.7);
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .prose th {
-  background: rgba(99, 102, 241, 0.1);
-  padding: 0.75rem;
+  background: rgba(99, 102, 241, 0.18);
+  padding: 1rem;
   text-align: left;
-  font-weight: 600;
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  font-weight: 700;
+  border: none;
   color: #c7d2fe;
 }
 
 .prose td {
-  padding: 0.75rem;
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  padding: 1rem;
+  border: none;
+  color: #e2e8f0;
 }
 
 .prose strong {
-  font-weight: 600;
+  font-weight: 700;
   color: #e0e7ff;
 }
 
 .prose code {
-  background: rgba(139, 92, 246, 0.2);
-  padding: 0.125rem 0.25rem;
-  border-radius: 0.25rem;
-  font-size: 0.875em;
-  font-family: 'Courier New', monospace;
+  background: rgba(139, 92, 246, 0.18);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 1em;
+  font-family: 'Fira Mono', 'Courier New', monospace;
   color: #c7d2fe;
+  word-break: break-all;
 }

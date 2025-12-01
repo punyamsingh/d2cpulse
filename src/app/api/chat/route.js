@@ -52,9 +52,21 @@ I have analyzed ${storeUrl} and here is the REAL data from the store:
 
 ${JSON.stringify(toolResult, null, 2)}
 
-Your task: Create a beautiful, detailed HTML report using ONLY this data. Do NOT make up any additional information. Use the actual prices, products, and insights from the data above.
+Your task: Create a detailed competitive intelligence report using ONLY this data. Do NOT make up any additional information. Use the actual prices, products, and insights from the data above.
 
-Format your response as clean HTML with proper styling.`;
+Format your response as a single JSON object matching this schema:
+{
+  "title": "string",
+  "metrics": [{ "label": "string", "value": "string or number" }],
+  "sections": [
+    {
+      "title": "string",
+      "content": "string (optional)",
+      "items": ["string", ...] (optional)
+    }
+  ]
+}
+Do not include any HTML, markdown, or code blocks. Only output the JSON object.`;
       } else {
         enhancedSystemPrompt = `You are D2CPulse. The store analysis for ${storeUrl} failed with error: ${toolResult.error}
 
@@ -82,30 +94,61 @@ Inform the user of this error and suggest they verify the URL or try a different
       temperature: 0.7,
     });
 
-    // Stream the response like lighthouse does
+    // Accumulate full response, clean it, validate, then send to frontend
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
         try {
           let accumulatedResponse = "";
 
-          // Process streaming chunks from NeuroLink
+          // Accumulate all chunks from NeuroLink
           for await (const chunk of streamResult.stream) {
-            let chunkText = "";
-
             if (chunk && typeof chunk === "object") {
               if ("content" in chunk && typeof chunk.content === "string") {
-                chunkText = chunk.content;
-                accumulatedResponse += chunkText;
-
-                // Send chunk to frontend
-                controller.enqueue(
-                  encoder.encode(`0:${JSON.stringify(chunkText)}\n`)
-                );
+                accumulatedResponse += chunk.content;
               } else if ("type" in chunk && chunk.type === "audio") {
                 // Skip audio chunks
                 continue;
               }
+            }
+          }
+
+          // Clean and validate the full response
+          if (accumulatedResponse.trim()) {
+            // Strip markdown code blocks (```json ... ``` or ``` ... ```)
+            let cleanedResponse = accumulatedResponse
+              .replace(/^```(json)?\s*/i, "")
+              .replace(/```\s*$/i, "")
+              .trim();
+
+            try {
+              const parsed = JSON.parse(cleanedResponse);
+              console.log("✓ Valid JSON response generated");
+
+              // Send cleaned, stringified JSON to frontend
+              const jsonString = JSON.stringify(parsed);
+              controller.enqueue(
+                encoder.encode(`0:${JSON.stringify(jsonString)}\n`)
+              );
+            } catch (e) {
+              console.error("✗ AI generated invalid JSON:", e.message);
+              console.log(
+                "Raw response:",
+                accumulatedResponse.substring(0, 500)
+              );
+              console.log(
+                "Cleaned response:",
+                cleanedResponse.substring(0, 500)
+              );
+
+              // Send error to frontend
+              controller.enqueue(
+                encoder.encode(
+                  `error:${JSON.stringify({
+                    error: "AI generated invalid JSON. Please try again.",
+                  })}\n`
+                )
+              );
             }
           }
 
