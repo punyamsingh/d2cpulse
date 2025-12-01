@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { z } from "zod";
+import Image from "next/image";
+
 // Zod schema for AI report
 const AIReportSchema = z.object({
   title: z.string(),
@@ -19,129 +21,84 @@ const AIReportSchema = z.object({
     .optional(),
 });
 
+// Icons
+const SendIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+  </svg>
+);
+
+const SparkleIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+  </svg>
+);
+
+const ChartIcon = () => (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+  </svg>
+);
+
+// Safe AI Report Renderer with Nightwing theme
 function SafeAIReportRenderer({ report }) {
   try {
     const validated = AIReportSchema.parse(report);
     return (
-      <div style={{ width: "100%", maxWidth: "100%" }}>
-        <div
-          style={{
-            background: "rgba(30,41,59,0.98)",
-            borderRadius: "1.2rem",
-            padding: "clamp(1.25rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem)",
-            boxShadow: "0 8px 32px rgba(139,92,246,0.10)",
-          }}
-        >
-          <h1
-            style={{
-              fontSize: "clamp(1.5rem, 4vw, 2.2rem)",
-              fontWeight: "700",
-              marginTop: "0",
-              marginBottom: "1.2rem",
-              background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              letterSpacing: "-1px",
-            }}
-          >
+      <div className="w-full max-w-4xl mx-auto fade-in">
+        <div className="glass-card p-6 md:p-8">
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 gradient-text leading-tight">
             {validated.title}
           </h1>
 
+          {/* Metrics Grid */}
           {validated.metrics && validated.metrics.length > 0 && (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-                gap: "1rem",
-                marginBottom: "2rem",
-                marginTop: "2rem",
-                width: "100%",
-              }}
-            >
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
               {validated.metrics.map((m, i) => (
                 <div
                   key={i}
+                  className="relative group p-4 rounded-xl transition-all duration-300 hover:-translate-y-1"
                   style={{
-                    background: "rgba(139, 92, 246, 0.1)",
-                    borderRadius: "0.75rem",
-                    padding: "1.25rem",
-                    border: "1px solid rgba(139, 92, 246, 0.2)",
-                    transition: "all 0.3s ease",
+                    background: 'rgba(14, 165, 233, 0.08)',
+                    border: '1px solid rgba(14, 165, 233, 0.2)',
                   }}
                 >
-                  <div
-                    style={{
-                      fontSize: "0.8rem",
-                      color: "#a0aec0",
-                      marginBottom: "0.5rem",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    {m.label}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "1.5rem",
-                      color: "#a78bfa",
-                      fontWeight: "700",
-                      lineHeight: "1.2",
-                    }}
-                  >
-                    {m.value}
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ boxShadow: '0 0 20px rgba(14, 165, 233, 0.2)' }}
+                  />
+                  <div className="relative">
+                    <div className="text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-medium">
+                      {m.label}
+                    </div>
+                    <div className="text-xl md:text-2xl font-bold text-sky-400">
+                      {m.value}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           )}
 
+          {/* Sections */}
           {validated.sections &&
             validated.sections.map((section, i) => (
-              <div
-                key={i}
-                style={{ marginBottom: "2.5rem", marginTop: "2rem" }}
-              >
-                <h2
-                  style={{
-                    fontSize: "clamp(1.25rem, 3.5vw, 1.7rem)",
-                    fontWeight: "600",
-                    marginTop: "2rem",
-                    marginBottom: "1.1rem",
-                    background:
-                      "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    letterSpacing: "-0.5px",
-                  }}
-                >
+              <div key={i} className="mb-8 last:mb-0">
+                <h2 className="text-lg md:text-xl font-semibold mb-4 text-sky-300 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
                   {section.title}
                 </h2>
                 {section.content && (
-                  <p
-                    style={{
-                      marginTop: "1rem",
-                      lineHeight: "1.8",
-                      color: "#e2e8f0",
-                    }}
-                  >
+                  <p className="text-slate-300 leading-relaxed mb-4">
                     {section.content}
                   </p>
                 )}
                 {section.items && section.items.length > 0 && (
-                  <ul
-                    style={{
-                      marginTop: "1rem",
-                      paddingLeft: "2rem",
-                      color: "#e2e8f0",
-                    }}
-                  >
+                  <ul className="space-y-2 pl-4">
                     {section.items.map((item, j) => (
                       <li
                         key={j}
-                        style={{ marginTop: "0.4rem", marginBottom: "0.4rem" }}
+                        className="text-slate-300 relative pl-4 before:absolute before:left-0 before:top-2.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-sky-500/50"
                       >
                         {item}
                       </li>
@@ -155,15 +112,9 @@ function SafeAIReportRenderer({ report }) {
     );
   } catch (e) {
     return (
-      <div style={{ width: "100%" }}>
-        <div
-          style={{
-            background: "rgba(30,41,59,0.98)",
-            borderRadius: "1.2rem",
-            padding: "2rem",
-          }}
-        >
-          <pre style={{ color: "#e53e3e" }}>
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="glass-card p-6">
+          <pre className="text-red-400 text-sm">
             AI output is not valid or safe JSON.
             <br />
             {e.message}
@@ -174,61 +125,18 @@ function SafeAIReportRenderer({ report }) {
   }
 }
 
-// Dedicated agent to render AI report from structured JSON
-function AIReportRenderer({ report }) {
-  if (!report) return null;
-  // Example: expects report = { title, metrics, sections }
+// Loading Animation
+function LoadingIndicator() {
   return (
-    <div className="ai-report-area">
-      <div className="prose">
-        <h1>{report.title}</h1>
-        {report.metrics && (
-          <div style={{ display: "flex", gap: "2rem", marginBottom: "2rem" }}>
-            {report.metrics.map((m, i) => (
-              <div
-                key={i}
-                style={{
-                  background: "#232336",
-                  borderRadius: "1rem",
-                  padding: "1rem 2rem",
-                }}
-              >
-                <div style={{ fontSize: "0.9em", color: "#a0aec0" }}>
-                  {m.label}
-                </div>
-                <div
-                  style={{
-                    fontSize: "2em",
-                    color: "#8b5cf6",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {m.value}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-        {report.sections &&
-          report.sections.map((section, i) => (
-            <div key={i} style={{ marginBottom: "2rem" }}>
-              <h2>{section.title}</h2>
-              {section.content && <p>{section.content}</p>}
-              {section.items && (
-                <ul>
-                  {section.items.map((item, j) => (
-                    <li key={j}>{item}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
+    <div className="flex items-center gap-3 p-4">
+      <div className="relative">
+        <div className="w-8 h-8 rounded-full border-2 border-sky-500/20 border-t-sky-500 animate-spin" />
+        <div className="absolute inset-0 w-8 h-8 rounded-full animate-ping bg-sky-500/20" />
       </div>
+      <span className="text-slate-400 font-medium">Analyzing...</span>
     </div>
   );
 }
-import Image from "next/image";
-import "./page.css";
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
@@ -309,137 +217,225 @@ export default function Home() {
     }
   };
 
+  const examplePrompts = [
+    { text: "Analyze boat-lifestyle.com", icon: <ChartIcon /> },
+    { text: "Analyze gonoise.com", icon: <ChartIcon /> },
+  ];
+
   return (
-    <div className="container">
+    <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="header">
-        <div className="header-content">
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <Image
-              src="/logo.svg"
-              alt="D2CPulse Logo"
-              width={80}
-              height={80}
-              priority
-            />
-            <div>
-              <h1 className="header-title">D2CPulse</h1>
-              <p className="header-subtitle">
-                AI-powered competitive intelligence for D2C brands
-              </p>
+      <header className="sticky top-0 z-50 backdrop-blur-xl border-b border-sky-500/10"
+        style={{ background: 'rgba(2, 6, 23, 0.8)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            <div className="flex items-center gap-3 md:gap-4">
+              <div className="relative">
+                <Image
+                  src="/logo.svg"
+                  alt="D2CPulse Logo"
+                  width={48}
+                  height={48}
+                  className="md:w-14 md:h-14"
+                  priority
+                />
+                <div className="absolute inset-0 blur-xl bg-sky-500/20 -z-10" />
+              </div>
+              <div>
+                <h1 className="text-xl md:text-2xl font-bold gradient-text tracking-tight">
+                  D2CPulse
+                </h1>
+                <p className="text-xs md:text-sm text-slate-400 hidden sm:block">
+                  AI-powered competitive intelligence for D2C brands
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://github.com/punyamsingh/d2cpulse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-sky-500/10 transition-all duration-200"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Chat Container */}
-      <main className="main-content">
-        {/* Messages */}
-        <div className="messages-container">
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Messages Container */}
+        <div className="flex-1 space-y-6">
+          {/* Empty State */}
           {messages.length === 0 && (
-            <div className="empty-state">
-              <Image
-                src="/logo.svg"
-                alt="D2CPulse Logo"
-                width={200}
-                height={200}
-                style={{ margin: "0 auto 1rem" }}
-              />
-              <h2 className="empty-title">Welcome to D2CPulse</h2>
-              <p className="empty-subtitle">
-                Analyze any Shopify store for competitive intelligence
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+              {/* Animated Logo */}
+              <div className="relative mb-8">
+                <Image
+                  src="/logo.svg"
+                  alt="D2CPulse Logo"
+                  width={160}
+                  height={160}
+                  className="relative z-10"
+                />
+                <div className="absolute inset-0 blur-3xl bg-sky-500/20 animate-pulse" />
+              </div>
+
+              {/* Hero Text */}
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
+                <span className="gradient-text">Welcome to D2CPulse</span>
+              </h2>
+              <p className="text-slate-400 text-lg md:text-xl max-w-xl mb-12">
+                Analyze any Shopify store for competitive intelligence using AI
               </p>
 
-              {/* Example prompts */}
-              <div className="example-prompts">
-                {[
-                  "Analyze boat-lifestyle.com",
-                  "Analyze gonoise.com"
-                ].map((example, i) => (
+              {/* Example Prompts */}
+              <div className="grid sm:grid-cols-2 gap-4 w-full max-w-2xl">
+                {examplePrompts.map((example, i) => (
                   <button
                     key={i}
                     onClick={(e) => {
                       e.preventDefault();
-                      handleSubmit(e, {
-                        data: { content: example },
-                      });
+                      handleSubmit(e, { data: { content: example.text } });
                     }}
-                    className="example-button"
+                    className="group relative flex items-center gap-3 p-5 rounded-xl text-left transition-all duration-300 hover:-translate-y-1"
+                    style={{
+                      background: 'rgba(14, 165, 233, 0.05)',
+                      border: '1px solid rgba(14, 165, 233, 0.15)',
+                    }}
                   >
-                    {example}
+                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ boxShadow: '0 0 30px rgba(14, 165, 233, 0.15)' }}
+                    />
+                    <span className="relative text-sky-400 group-hover:text-sky-300 transition-colors">
+                      {example.icon}
+                    </span>
+                    <span className="relative text-slate-200 font-medium group-hover:text-white transition-colors">
+                      {example.text}
+                    </span>
+                    <span className="relative ml-auto text-slate-500 group-hover:text-sky-400 transition-colors">
+                      →
+                    </span>
                   </button>
+                ))}
+              </div>
+
+              {/* Feature Pills */}
+              <div className="flex flex-wrap justify-center gap-3 mt-12">
+                {['AI-Powered', 'Real-time Analysis', 'Shopify Expert'].map((feature, i) => (
+                  <span
+                    key={i}
+                    className="px-4 py-1.5 rounded-full text-sm font-medium text-sky-300"
+                    style={{
+                      background: 'rgba(14, 165, 233, 0.1)',
+                      border: '1px solid rgba(14, 165, 233, 0.2)',
+                    }}
+                  >
+                    <SparkleIcon className="inline-block w-4 h-4 mr-1.5" />
+                    {feature}
+                  </span>
                 ))}
               </div>
             </div>
           )}
 
+          {/* Messages */}
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`message-wrapper ${
-                message.role === "user" ? "message-user" : "message-assistant"
-              }`}
+              className={`fade-in ${message.role === "user" ? "flex justify-end" : ""}`}
             >
-              <div
-                className={`message-bubble ${
-                  message.role === "user" ? "bubble-user" : "bubble-assistant"
-                }`}
-              >
-                {message.role === "assistant" ? (
-                  (() => {
-                    let report = null;
-                    try {
-                      report = JSON.parse(message.content);
-                    } catch {
-                      return (
-                        <div className="ai-report-area">
-                          <div className="prose">
-                            <pre style={{ color: "#e53e3e" }}>
-                              AI output is not valid JSON.
-                            </pre>
-                          </div>
-                        </div>
-                      );
-                    }
+              {message.role === "user" ? (
+                <div className="max-w-2xl">
+                  <div
+                    className="inline-block px-5 py-3 rounded-2xl rounded-tr-md font-medium"
+                    style={{
+                      background: 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)',
+                      boxShadow: '0 0 20px rgba(14, 165, 233, 0.3)',
+                    }}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ) : (
+                (() => {
+                  let report = null;
+                  try {
+                    report = JSON.parse(message.content);
                     return <SafeAIReportRenderer report={report} />;
-                  })()
-                ) : (
-                  <p>{message.content}</p>
-                )}
-              </div>
+                  } catch {
+                    return (
+                      <div className="w-full max-w-4xl mx-auto">
+                        <div className="glass-card p-6">
+                          <pre className="text-red-400 text-sm whitespace-pre-wrap">
+                            AI output is not valid JSON.
+                          </pre>
+                        </div>
+                      </div>
+                    );
+                  }
+                })()
+              )}
             </div>
           ))}
 
+          {/* Loading */}
           {isLoading && (
-            <div className="message-wrapper message-assistant">
-              <div className="message-bubble bubble-assistant">
-                <div className="loading-container">
-                  <div className="spinner"></div>
-                  <span>Analyzing...</span>
-                </div>
+            <div className="fade-in">
+              <div className="glass-card inline-block">
+                <LoadingIndicator />
               </div>
             </div>
           )}
         </div>
 
-        {/* Input Form */}
-        <div className="input-section">
-          <form onSubmit={handleSubmit} className="input-form">
-            <div className="input-wrapper">
+        {/* Input Section */}
+        <div className="sticky bottom-0 pt-4 pb-6 mt-6"
+          style={{
+            background: 'linear-gradient(to top, rgba(2, 6, 23, 1) 0%, rgba(2, 6, 23, 0.95) 50%, transparent 100%)',
+          }}>
+          <form onSubmit={handleSubmit} className="relative">
+            <div
+              className="flex items-center gap-2 p-2 rounded-2xl transition-all duration-300 focus-within:shadow-glow-md"
+              style={{
+                background: 'rgba(10, 15, 31, 0.8)',
+                border: '1px solid rgba(14, 165, 233, 0.2)',
+                backdropFilter: 'blur(20px)',
+              }}
+            >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me to analyze stores or compare them..."
                 disabled={isLoading}
-                className="input-field"
+                className="flex-1 bg-transparent px-4 py-3 text-white placeholder-slate-500 outline-none text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button
                 type="submit"
                 disabled={isLoading || !input?.trim()}
-                className="submit-button"
+                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none hover:-translate-y-0.5"
+                style={{
+                  background: isLoading || !input?.trim() 
+                    ? 'rgba(100, 116, 139, 0.3)'
+                    : 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)',
+                  boxShadow: isLoading || !input?.trim()
+                    ? 'none'
+                    : '0 0 20px rgba(14, 165, 233, 0.3)',
+                }}
               >
-                {isLoading ? "Analyzing..." : "Send"}
+                {isLoading ? (
+                  <div className="w-5 h-5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                ) : (
+                  <>
+                    <SendIcon />
+                    <span className="hidden sm:inline">Send</span>
+                  </>
+                )}
               </button>
             </div>
           </form>
@@ -447,9 +443,17 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="footer">
-        <p>D2CPulse - Powered by Neurolink & AI</p>
-        <p>Competitive intelligence for D2C brands in India</p>
+      <footer className="border-t border-sky-500/10 py-6"
+        style={{ background: 'rgba(2, 6, 23, 0.8)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+            <div className="flex items-center gap-2">
+              <span className="gradient-text font-semibold">D2CPulse</span>
+              <span>• Powered by Neurolink & AI</span>
+            </div>
+            <p>Competitive intelligence for D2C brands</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
