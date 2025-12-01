@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased font-sans">{children}</body>
     </html>
   );
 }
