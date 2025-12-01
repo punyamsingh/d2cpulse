@@ -14,5 +14,8 @@
     "react-dom": "19.2.0",
     "sqlite3": "^5.1.7",
     "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "baseline-browser-mapping": "^2.8.32"
   }
 }

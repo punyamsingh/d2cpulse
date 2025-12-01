@@ -1,5 +1,5 @@
 /**
- * Shopify Store Analyzer
+ * Shopify Store Analyzer Utilities
  * Fetches and analyzes Shopify store data for competitive intelligence
  */
 
@@ -148,7 +148,7 @@ export async function fetchCollections(storeUrl) {
 /**
  * Calculate statistics from products
  */
-function calculateStatistics(products) {
+function calculateStatistics(products, storeUrl) {
   const productData = [];
   const allTags = [];
   const vendors = [];
@@ -170,9 +170,8 @@ function calculateStatistics(products) {
       try {
         const priceValue = parseFloat(variant.price || 0);
         // Detect if price is already in INR (typically > 100) or USD (typically < 100)
-        // Most USD prices for products are under $100, while INR prices are typically over ₹100
         const isAlreadyInr = priceValue > 100 || storeUrl.includes(".in");
-        const priceInr = isAlreadyInr ? priceValue : priceValue * 83; // Current USD to INR rate
+        const priceInr = isAlreadyInr ? priceValue : priceValue * 83;
 
         const compareAtPrice = variant.compare_at_price;
         const compareAtInr = compareAtPrice
@@ -277,7 +276,7 @@ export async function analyzeShopifyStore(storeUrl, maxProducts = null) {
   const collections = collectionsResult.collections || [];
   console.log(`✓ Fetched ${collections.length} collections`);
 
-  const stats = calculateStatistics(products);
+  const stats = calculateStatistics(products, storeUrl);
 
   if (!stats) {
     return {

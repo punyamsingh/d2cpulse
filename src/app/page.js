@@ -353,10 +353,8 @@ export default function Home() {
               {/* Example prompts */}
               <div className="example-prompts">
                 {[
-                  "Analyze pawsomelabs.com",
-                  "Analyze gymshark.com",
-                  "Compare these two stores",
-                  "What's the pricing strategy?",
+                  "Analyze boat-lifestyle.com",
+                  "Analyze gonoise.com"
                 ].map((example, i) => (
                   <button
                     key={i}

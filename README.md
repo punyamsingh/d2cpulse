@@ -92,11 +92,11 @@
 Simply type natural language queries in the chat interface:
 
 ```
-Analyze pawsomelabs.com
+Analyze boat-lifestyle.com
 ```
 
 ```
-Compare gymshark.com and nike.com
+Compare gonoise.com and nike.com
 ```
 
 ```
