@@ -224,38 +224,35 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
+      {/* Header - Minimal and clean */}
       <header className="sticky top-0 z-50 backdrop-blur-xl border-b border-sky-500/10"
-        style={{ background: 'rgba(2, 6, 23, 0.8)' }}>
+        style={{ background: 'rgba(2, 6, 23, 0.9)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center justify-between h-14 md:h-16">
+            <div className="flex items-center gap-2 md:gap-3">
               <div className="relative">
                 <Image
                   src="/logo.svg"
                   alt="D2CPulse Logo"
-                  width={48}
-                  height={48}
-                  className="md:w-14 md:h-14"
+                  width={36}
+                  height={36}
+                  className="md:w-10 md:h-10"
                   priority
                 />
-                <div className="absolute inset-0 blur-xl bg-sky-500/20 -z-10" />
               </div>
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold gradient-text tracking-tight">
-                  D2CPulse
-                </h1>
-                <p className="text-xs md:text-sm text-slate-400 hidden sm:block">
-                  AI-powered competitive intelligence for D2C brands
-                </p>
-              </div>
+              <h1 className="text-lg md:text-xl font-bold gradient-text tracking-tight">
+                D2CPulse
+              </h1>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              <span className="hidden md:inline text-xs text-slate-500">
+                AI-powered D2C intelligence
+              </span>
               <a
                 href="https://github.com/punyamsingh/d2cpulse"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-sky-500/10 transition-all duration-200"
+                className="p-2 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-sky-500/10 transition-all duration-200"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
@@ -272,29 +269,29 @@ export default function Home() {
         <div className="flex-1 space-y-6">
           {/* Empty State */}
           {messages.length === 0 && (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-              {/* Animated Logo */}
-              <div className="relative mb-8">
+            <div className="flex flex-col items-center justify-center min-h-[65vh] text-center px-4">
+              {/* Hero Logo - smaller, more elegant */}
+              <div className="relative mb-6">
                 <Image
                   src="/logo.svg"
                   alt="D2CPulse Logo"
-                  width={160}
-                  height={160}
+                  width={100}
+                  height={100}
                   className="relative z-10"
                 />
-                <div className="absolute inset-0 blur-3xl bg-sky-500/20 animate-pulse" />
+                <div className="absolute inset-0 blur-2xl bg-sky-500/30 animate-pulse" />
               </div>
 
-              {/* Hero Text */}
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-                <span className="gradient-text">Welcome to D2CPulse</span>
+              {/* Hero Text - bolder, more impactful */}
+              <h2 className="text-4xl md:text-6xl font-extrabold mb-3 tracking-tight">
+                <span className="gradient-text">D2CPulse</span>
               </h2>
-              <p className="text-slate-400 text-lg md:text-xl max-w-xl mb-12">
-                Analyze any Shopify store for competitive intelligence using AI
+              <p className="text-slate-400 text-base md:text-lg max-w-md mb-10">
+                AI-powered competitive intelligence for Shopify stores
               </p>
 
-              {/* Example Prompts */}
-              <div className="grid sm:grid-cols-2 gap-4 w-full max-w-2xl">
+              {/* Example Prompts - more prominent, better contrast */}
+              <div className="grid sm:grid-cols-2 gap-3 w-full max-w-xl mb-8">
                 {examplePrompts.map((example, i) => (
                   <button
                     key={i}
@@ -302,40 +299,45 @@ export default function Home() {
                       e.preventDefault();
                       handleSubmit(e, { data: { content: example.text } });
                     }}
-                    className="group relative flex items-center gap-3 p-5 rounded-xl text-left transition-all duration-300 hover:-translate-y-1"
+                    className="group relative flex items-center gap-3 px-5 py-4 rounded-xl text-left transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(14, 165, 233, 0.05)',
-                      border: '1px solid rgba(14, 165, 233, 0.15)',
+                      background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%)',
+                      border: '1px solid rgba(14, 165, 233, 0.25)',
+                      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
                     }}
                   >
                     <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ boxShadow: '0 0 30px rgba(14, 165, 233, 0.15)' }}
+                      style={{ 
+                        background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%)',
+                        boxShadow: '0 0 30px rgba(14, 165, 233, 0.2), inset 0 1px 0 rgba(255,255,255,0.1)' 
+                      }}
                     />
                     <span className="relative text-sky-400 group-hover:text-sky-300 transition-colors">
                       {example.icon}
                     </span>
-                    <span className="relative text-slate-200 font-medium group-hover:text-white transition-colors">
+                    <span className="relative text-white font-medium group-hover:text-white transition-colors flex-1">
                       {example.text}
                     </span>
-                    <span className="relative ml-auto text-slate-500 group-hover:text-sky-400 transition-colors">
+                    <span className="relative text-sky-400 group-hover:translate-x-1 transition-transform duration-200">
                       →
                     </span>
                   </button>
                 ))}
               </div>
 
-              {/* Feature Pills */}
-              <div className="flex flex-wrap justify-center gap-3 mt-12">
-                {['AI-Powered', 'Real-time Analysis', 'Shopify Expert'].map((feature, i) => (
+              {/* Feature Pills - larger, better contrast */}
+              <div className="flex flex-wrap justify-center gap-2">
+                {['AI-Powered', 'Real-time', 'Shopify Expert'].map((feature, i) => (
                   <span
                     key={i}
-                    className="px-4 py-1.5 rounded-full text-sm font-medium text-sky-300"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase"
                     style={{
-                      background: 'rgba(14, 165, 233, 0.1)',
-                      border: '1px solid rgba(14, 165, 233, 0.2)',
+                      background: 'rgba(14, 165, 233, 0.15)',
+                      border: '1px solid rgba(14, 165, 233, 0.3)',
+                      color: '#7dd3fc',
                     }}
                   >
-                    <SparkleIcon className="inline-block w-4 h-4 mr-1.5" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
                     {feature}
                   </span>
                 ))}
@@ -393,65 +395,69 @@ export default function Home() {
           )}
         </div>
 
-        {/* Input Section */}
-        <div className="sticky bottom-0 pt-4 pb-6 mt-6"
+        {/* Input Section - more prominent, better visual hierarchy */}
+        <div className="sticky bottom-0 pt-6 pb-8 mt-auto"
           style={{
-            background: 'linear-gradient(to top, rgba(2, 6, 23, 1) 0%, rgba(2, 6, 23, 0.95) 50%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(2, 6, 23, 1) 0%, rgba(2, 6, 23, 0.98) 60%, transparent 100%)',
           }}>
-          <form onSubmit={handleSubmit} className="relative">
+          <form onSubmit={handleSubmit} className="relative max-w-3xl mx-auto">
             <div
-              className="flex items-center gap-2 p-2 rounded-2xl transition-all duration-300 focus-within:shadow-glow-md"
+              className="flex items-center gap-2 p-2.5 rounded-2xl transition-all duration-300 focus-within:ring-2 focus-within:ring-sky-500/40"
               style={{
-                background: 'rgba(10, 15, 31, 0.8)',
-                border: '1px solid rgba(14, 165, 233, 0.2)',
-                backdropFilter: 'blur(20px)',
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 15, 31, 0.95) 100%)',
+                border: '1px solid rgba(14, 165, 233, 0.25)',
+                boxShadow: '0 -10px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(14, 165, 233, 0.1)',
               }}
             >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask me to analyze stores or compare them..."
+                placeholder="Enter a Shopify store URL to analyze..."
                 disabled={isLoading}
-                className="flex-1 bg-transparent px-4 py-3 text-white placeholder-slate-500 outline-none text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-transparent px-4 py-3 text-white placeholder-slate-400 outline-none text-base disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button
                 type="submit"
                 disabled={isLoading || !input?.trim()}
-                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none hover:-translate-y-0.5"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 style={{
                   background: isLoading || !input?.trim() 
-                    ? 'rgba(100, 116, 139, 0.3)'
+                    ? 'rgba(71, 85, 105, 0.5)'
                     : 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)',
                   boxShadow: isLoading || !input?.trim()
                     ? 'none'
-                    : '0 0 20px rgba(14, 165, 233, 0.3)',
+                    : '0 4px 15px rgba(14, 165, 233, 0.4)',
                 }}
               >
                 {isLoading ? (
                   <div className="w-5 h-5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                 ) : (
                   <>
-                    <SendIcon />
-                    <span className="hidden sm:inline">Send</span>
+                    <SendIcon className="w-4 h-4" />
+                    <span>Analyze</span>
                   </>
                 )}
               </button>
             </div>
+            <p className="text-center text-xs text-slate-500 mt-3">
+              Try: boat-lifestyle.com, gonoise.com, or any Shopify store
+            </p>
           </form>
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-sky-500/10 py-6"
-        style={{ background: 'rgba(2, 6, 23, 0.8)' }}>
+      {/* Footer - minimal */}
+      <footer className="border-t border-sky-500/5 py-4"
+        style={{ background: 'rgba(2, 6, 23, 0.95)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-            <div className="flex items-center gap-2">
-              <span className="gradient-text font-semibold">D2CPulse</span>
-              <span>• Powered by Neurolink & AI</span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sky-400 font-medium">D2CPulse</span>
+              <span>•</span>
+              <span>Powered by Neurolink & AI</span>
             </div>
-            <p>Competitive intelligence for D2C brands</p>
+            <p className="text-slate-600">Competitive intelligence for D2C brands</p>
           </div>
         </div>
       </footer>
