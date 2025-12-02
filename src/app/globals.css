@@ -15,7 +15,7 @@
 
   body {
     @apply min-h-screen font-sans antialiased;
-    background: linear-gradient(180deg, #020617 0%, #0a0f1f 50%, #0d1526 100%);
+    background: linear-gradient(180deg, #020617 0%, #030920 50%, #020617 100%);
     color: #e2e8f0;
     overflow-x: hidden;
   }
